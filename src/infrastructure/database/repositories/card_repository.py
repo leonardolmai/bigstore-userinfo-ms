@@ -7,7 +7,7 @@ from src.domain.entities.card import Card
 from src.infrastructure.database.models.card import Card as CardModel
 
 
-class UserRepository(CardRepositoryInterface):
+class CardRepository(CardRepositoryInterface):
     def __init__(self, session: Session):
         self.session: Session = session
 
