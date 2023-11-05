@@ -6,6 +6,6 @@ class CreateCardController:
     def __init__(self, use_case: CreateCardUseCaseInterface) -> None:
         self.__use_case = use_case
 
-    def handle(self, address) -> CardOut | None:
-        response = self.__use_case.execute(address)
+    def handle(self, card) -> CardOut | None:
+        response = self.__use_case.execute(card)
         return response
