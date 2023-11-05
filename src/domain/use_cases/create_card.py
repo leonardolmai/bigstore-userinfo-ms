@@ -5,5 +5,5 @@ from src.domain.entities.card import Card
 
 class CreateCardUseCaseInterface(ABC):
     @abstractmethod
-    def execute(self, address: Card) -> Card | None:
+    def execute(self, card: Card) -> Card | None:
         pass
