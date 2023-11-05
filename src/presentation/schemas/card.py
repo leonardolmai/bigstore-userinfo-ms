@@ -12,7 +12,6 @@ class CardCreate(BaseModel):
 
 
 class CardUpdate(BaseModel):
-    id: int | None = None
     user_id: int | None = None
     postal_code: str | None = None
     name: str | None = None
