@@ -22,7 +22,6 @@ class CardUpdate(BaseModel):
 
 
 class CardOut(BaseModel):
-    id: int
     user_id: int
     postal_code: str
     name: str
