@@ -7,7 +7,7 @@ from src.domain.entities.card import Card
 from src.infrastructure.database.models.card import Card as CardModel
 
 
-class CardRepository(CardRepositoryInterface):
+class UserRepository(CardRepositoryInterface):
     def __init__(self, session: Session):
         self.session: Session = session
 
@@ -20,7 +20,9 @@ class CardRepository(CardRepositoryInterface):
     def get_card(self, id: int) -> Card | None:
         try:
             return (
-                self.session.query(CardModel).filter(CardModel.id == id).one_or_none()
+                self.session.query(CardModel)
+                .filter(CardModel.user_id == id)
+                .one_or_none()
             )
         except:
             return None
@@ -35,13 +37,12 @@ class CardRepository(CardRepositoryInterface):
                 "expiration_year": card.expiration_year,
                 "cvc": card.cvc,
             }
-
             card_model = CardModel(**card_data)
 
             self.session.add(card_model)
             self.session.commit()
-            return card_model
 
+            return card_model
         except:
             return None
 
@@ -57,7 +58,7 @@ class CardRepository(CardRepositoryInterface):
         except:
             return None
 
-    def delete_card(self, id: int) -> bool:
+    def delete_user(self, id: str) -> bool:
         try:
             self.session.query(CardModel).filter(CardModel.id == id).delete()
             self.session.commit()
