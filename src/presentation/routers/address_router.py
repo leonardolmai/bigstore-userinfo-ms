@@ -8,6 +8,9 @@ from src.presentation.composers.create_address_composer import (
 from src.presentation.composers.delete_address_composer import (
     delete_address_composer,
 )
+from src.presentation.composers.get_address_composer import (
+    get_address_composer,
+)
 from src.presentation.composers.list_addresses_composer import (
     list_addresses_composer,
 )
@@ -23,22 +26,12 @@ from src.presentation.schemas.address import (
 router = APIRouter(prefix="/addresses", tags=["addresses"])
 
 
-@router.get("/", status_code=status.HTTP_200_OK, response_model=list[AddressOut])
-def list_addresses(session: Session = Depends(get_db)):
-    addresses = list_addresses_composer(session)
-    if addresses:
-        return [addresses]
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND, detail="List addresses not found."
-    )
-
-
-@router.get("/me/{id}", status_code=status.HTTP_200_OK, response_model=AddressOut)
+@router.get("/{id}", status_code=status.HTTP_200_OK, response_model=AddressOut)
 def get_address(
     id: int,
     session: Session = Depends(get_db),
 ):
-    address = get_address(id, session)
+    address = get_address_composer(session, id)
     if address:
         return address
     raise HTTPException(
@@ -46,20 +39,38 @@ def get_address(
     )
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=AddressOut)
-def create_address(address: AddressCreate, session: Session = Depends(get_db)):
-    address = create_address_composer(session, address)
+@router.get(
+    "/list/{user_id}", status_code=status.HTTP_200_OK, response_model=list[AddressOut]
+)
+def list_addresses(user_id: int, session: Session = Depends(get_db)):
+    address = list_addresses_composer(user_id, session)
     print(address)
     if address:
         return address
     raise HTTPException(
-        status_code=status.HTTP_409_CONFLICT, detail="Address already exists."
+        status_code=status.HTTP_404_NOT_FOUND, detail="List addresses not found."
     )
 
 
-@router.patch("/{id}", status_code=status.HTTP_200_OK, response_model=AddressOut)
+@router.post(
+    "/{user_id}", status_code=status.HTTP_201_CREATED, response_model=AddressOut
+)
+def create_address(
+    user_id: int, address: AddressCreate, session: Session = Depends(get_db)
+):
+    address = create_address_composer(session, address, user_id)
+    if address:
+        return address
+    raise HTTPException(
+        status_code=status.HTTP_409_CONFLICT,
+        detail="Address already exists or not found.",
+    )
+
+
+@router.patch("/update/{id}", status_code=status.HTTP_200_OK, response_model=AddressOut)
 def update_address(id: int, address: AddressUpdate, session: Session = Depends(get_db)):
-    address = update_address_composer(session, id)
+    address = address.model_dump(exclude_unset=True)
+    address = update_address_composer(session, id, address)
     if address:
         return address
     raise HTTPException(
