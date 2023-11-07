@@ -8,20 +8,22 @@ class Constraint:
         self.user_id = user_id
 
 
-class Card(Constraint):
+class User:
     def __init__(
         self,
         id: int,
         user_id: int,
         name: str,
-        number: str,
-        expiration_month: str,
-        expiration_year: str,
-        cvc: str,
+        email: str,
+        password: str,
+        phone: str | None = None,
+        cpf: str | None = None,
+        is_active: bool = True,
     ) -> None:
         super().__init__(id, user_id)
         self.name = name
-        self.number = number
-        self.expiration_month = expiration_month
-        self.expiration_year = expiration_year
-        self.cvc = cvc
+        self.email = email
+        self.password = password
+        self.phone = phone
+        self.cpf = cpf
+        self.is_active = is_active
