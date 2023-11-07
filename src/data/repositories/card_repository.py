@@ -6,7 +6,7 @@ from src.domain.entities.card import Card
 
 class CardRepositoryInterface(ABC):
     @abstractmethod
-    def list_cards(self) -> list[Card] | None:
+    def list_card(self, user_id: int) -> list[Card] | None:
         pass
 
     @abstractmethod
@@ -14,11 +14,11 @@ class CardRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def create_card(self, card: Card) -> Card | None:
+    def create_card(self, card: Card, user_id: int) -> Card | None:
         pass
 
     @abstractmethod
-    def update_card(self, id: int, update_fields: dict[str, Any]) -> Card | None:
+    def update_card(self, update_fields: dict[str, Any], id: int) -> Card | None:
         pass
 
     @abstractmethod
