@@ -9,6 +9,6 @@ class UpdateAddressesUseCase(UpdateAddressUseCaseInterface):
     def __init__(self, address_repository: AddressRepositoryInterface) -> None:
         self.__address_repository = address_repository
 
-    def execute(self, id, update_fields: dict[str, Any]) -> Address | None:
+    def execute(self, id: int, update_fields: dict[str, Any]) -> Address | None:
         address = self.__address_repository.update_address(id, update_fields)
         return address

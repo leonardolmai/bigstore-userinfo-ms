@@ -7,6 +7,6 @@ class GetAddressUseCase(GetAddressUseCaseInterface):
     def __init__(self, user_repository: AddressRepositoryInterface) -> None:
         self.__user_repository = user_repository
 
-    def execute(self, id: str) -> Address | None:
-        user = self.__user_repository.get_address(id)
-        return user
+    def execute(self, id: int) -> Address | None:
+        address = self.__user_repository.get_address(id)
+        return address

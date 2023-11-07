@@ -7,6 +7,7 @@ class CreateAddressUseCase(CreateAddressUseCaseInterface):
     def __init__(self, address_repository: AddressRepositoryInterface) -> None:
         self.__address_repository = address_repository
 
-    def execute(self, address: Address) -> Address | None:
-        address = self.__address_repository.create_address(address)
+    def execute(self, address: Address, user_id: int) -> Address | None:
+        print(address, "use case")
+        address = self.__address_repository.create_address(address, user_id)
         return address
