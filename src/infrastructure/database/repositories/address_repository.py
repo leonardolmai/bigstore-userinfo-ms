@@ -11,28 +11,35 @@ class AddressRepository(AddressRepositoryInterface):
     def __init__(self, session: Session):
         self.session: Session = session
 
-    def list_address(self) -> list[Address] | None:
+    def list_address(self, user_id) -> list[Address] | None:
         try:
-            return self.session.query(AddressModel).all()
+            return (
+                self.session.query(AddressModel)
+                .filter(AddressModel.user_id == user_id)
+                .all()
+            )
         except:
             return None
 
     def get_address(self, id: int) -> Address | None:
         try:
             return (
-                self.session.query(Address).filter(AddressModel.id == id).one_or_none()
+                self.session.query(AddressModel)
+                .filter(AddressModel.id == id)
+                .one_or_none()
             )
         except:
             return None
 
-    def create_address(self, address: Address) -> Address | None:
+    def create_address(self, address: Address, user_id: int) -> Address | None:
         try:
             address_data = {
-                "user_id": address.user_id,
+                "user_id": user_id,
                 "postal_code": address.postal_code,
                 "uf": address.uf,
                 "city": address.city,
                 "neighborhood": address.neighborhood,
+                "street": address.street,
                 "number": address.number,
                 "complement": address.complement,
             }
@@ -42,6 +49,7 @@ class AddressRepository(AddressRepositoryInterface):
             self.session.commit()
 
             return address_model
+
         except:
             return None
 
@@ -51,9 +59,9 @@ class AddressRepository(AddressRepositoryInterface):
                 update_fields
             )
             self.session.commit()
-            user_updated = self.get_address(id)
+            address_updated = self.get_address(id)
 
-            return user_updated
+            return address_updated
         except:
             return None
 
