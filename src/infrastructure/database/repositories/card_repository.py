@@ -11,26 +11,26 @@ class CardRepository(CardRepositoryInterface):
     def __init__(self, session: Session):
         self.session: Session = session
 
-    def list_card(self) -> list[Card] | None:
+    def list_card(self, user_id) -> list[Card] | None:
         try:
-            return self.session.query(CardModel).all()
+            return (
+                self.session.query(CardModel).filter(CardModel.user_id == user_id).all()
+            )
         except:
             return None
 
     def get_card(self, id: int) -> Card | None:
         try:
             return (
-                self.session.query(CardModel)
-                .filter(CardModel.user_id == id)
-                .one_or_none()
+                self.session.query(CardModel).filter(CardModel.id == id).one_or_none()
             )
         except:
             return None
 
-    def create_card(self, card: Card) -> Card | None:
+    def create_card(self, card: Card, user_id: int) -> Card | None:
         try:
             card_data = {
-                "user_id": card.user_id,
+                "user_id": user_id,
                 "name": card.name,
                 "number": card.number,
                 "expiration_month": card.expiration_month,
@@ -43,10 +43,11 @@ class CardRepository(CardRepositoryInterface):
             self.session.commit()
 
             return card_model
+
         except:
             return None
 
-    def update_card(self, id: int, update_fields: dict[str, Any]) -> Card | None:
+    def update_card(self, update_fields: dict[str, Any], id: int) -> Card | None:
         try:
             self.session.query(CardModel).filter(CardModel.id == id).update(
                 update_fields
@@ -58,7 +59,7 @@ class CardRepository(CardRepositoryInterface):
         except:
             return None
 
-    def delete_user(self, id: str) -> bool:
+    def delete_card(self, id: int) -> bool:
         try:
             self.session.query(CardModel).filter(CardModel.id == id).delete()
             self.session.commit()
