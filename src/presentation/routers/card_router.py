@@ -56,6 +56,7 @@ def create_card(user_id: int, card: CardCreate, session: Session = Depends(get_d
 
 @router.patch("/{id}", status_code=status.HTTP_200_OK, response_model=CardOut)
 def update_card(id: int, card: CardUpdate, session: Session = Depends(get_db)):
+    card = card.model_dump(exclude_unset=True)
     card = update_card_composer(session, id, card)
     if card:
         return card
