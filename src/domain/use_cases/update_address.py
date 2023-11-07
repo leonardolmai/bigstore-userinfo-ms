@@ -5,5 +5,5 @@ from src.domain.entities.address import Address
 
 class UpdateAddressUseCaseInterface(ABC):
     @abstractmethod
-    def execute(self, id, update_fields: dict[str, any]) -> Address | None:
+    def execute(self, id: int, update_fields: dict[str, any]) -> Address | None:
         pass

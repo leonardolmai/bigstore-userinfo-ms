@@ -5,5 +5,5 @@ from src.domain.entities.address import Address
 
 class ListAddressesUseCaseInterface(ABC):
     @abstractmethod
-    def execute(self) -> list[Address] | None:
+    def execute(self, user_id: int) -> list[Address] | None:
         pass

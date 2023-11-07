@@ -5,5 +5,5 @@ from src.domain.entities.address import Address
 
 class CreateAddressUseCaseInterface(ABC):
     @abstractmethod
-    def execute(self, address: Address) -> Address | None:
+    def execute(self, address: Address, user_id: int) -> Address | None:
         pass
