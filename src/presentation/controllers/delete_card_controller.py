@@ -6,6 +6,6 @@ class DeleteCardController:
     def __init__(self, use_case: DeleteCardUseCaseInterface) -> None:
         self.__use_case = use_case
 
-    def handle(self, id) -> CardOut | None:
+    def handle(self, id: int) -> CardOut | None:
         response = self.__use_case.execute(id)
         return response

@@ -6,6 +6,6 @@ class UpdateCardController:
     def __init__(self, use_case: UpdateCardUseCaseInterface) -> None:
         self.__use_case = use_case
 
-    def handle(self, id, card) -> CardOut | None:
-        response = self.__use_case.execute(id, card)
+    def handle(self, card, id) -> CardOut | None:
+        response = self.__use_case.execute(card, id)
         return response
