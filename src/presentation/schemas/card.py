@@ -2,7 +2,6 @@ from pydantic import BaseModel
 
 
 class CardCreate(BaseModel):
-    user_id: int
     name: str
     number: str
     expiration_month: str
@@ -11,7 +10,6 @@ class CardCreate(BaseModel):
 
 
 class CardUpdate(BaseModel):
-    user_id: int | None = None
     name: str | None = None
     number: str | None = None
     expiration_month: str | None = None
@@ -20,7 +18,6 @@ class CardUpdate(BaseModel):
 
 
 class CardOut(BaseModel):
-    user_id: int
     name: str
     number: str
     expiration_month: str
