@@ -6,7 +6,7 @@ from src.domain.entities.address import Address
 
 class AddressRepositoryInterface(ABC):
     @abstractmethod
-    def list_address(self) -> list[Address] | None:
+    def list_address(self, user_id: int) -> list[Address] | None:
         pass
 
     @abstractmethod
@@ -14,7 +14,7 @@ class AddressRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def create_address(self, address: Address) -> Address | None:
+    def create_address(self, address: Address, user_id: int) -> Address | None:
         pass
 
     @abstractmethod
