@@ -8,9 +8,9 @@ from src.presentation.controllers.list_addresses_controller import (
 from src.presentation.schemas.address import AddressOut
 
 
-def list_addresses_composer(session) -> list[AddressOut] | None:
+def list_addresses_composer(user_id: int, session) -> list[AddressOut] | None:
     repository = AddressRepository(session)
     use_case = ListAddressessUseCase(repository)
     controller = ListAddressesController(use_case)
-    addresses = controller.handle()
-    return addresses
+    address = controller.handle(user_id)
+    return address

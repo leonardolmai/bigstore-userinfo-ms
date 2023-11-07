@@ -8,7 +8,7 @@ from src.presentation.controllers.update_address_controller import (
 from src.presentation.schemas.address import AddressOut
 
 
-def update_address_composer(session, id, address) -> AddressOut | None:
+def update_address_composer(session, id: int, address) -> AddressOut | None:
     repository = AddressRepository(session)
     use_case = UpdateAddressesUseCase(repository)
     controller = UpdateAddressController(use_case)
