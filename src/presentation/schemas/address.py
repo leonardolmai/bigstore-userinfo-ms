@@ -2,7 +2,6 @@ from pydantic import BaseModel
 
 
 class AddressCreate(BaseModel):
-    user_id: int
     postal_code: str
     uf: str
     city: str
@@ -13,8 +12,6 @@ class AddressCreate(BaseModel):
 
 
 class AddressUpdate(BaseModel):
-    id: int | None = None
-    user_id: int | None = None
     postal_code: str | None = None
     uf: str | None = None
     city: str | None = None
