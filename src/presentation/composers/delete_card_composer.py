@@ -9,9 +9,9 @@ from src.presentation.controllers.delete_card_controller import (
 from src.presentation.schemas.card import CardOut
 
 
-def delete_card_composer(session, card) -> CardOut | None:
+def delete_card_composer(session, id: int) -> CardOut | None:
     repository = CardRepository(session)
     use_case = DeleteCardUseCase(repository)
     controller = DeleteCardController(use_case)
-    card = controller.handle(card)
+    card = controller.handle(id)
     return card

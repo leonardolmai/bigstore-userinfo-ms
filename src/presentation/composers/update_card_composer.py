@@ -9,9 +9,10 @@ from src.presentation.controllers.update_card_controller import (
 from src.presentation.schemas.card import CardOut
 
 
-def update_card_composer(session, id, card) -> CardOut | None:
+def update_card_composer(session, id: int, card) -> CardOut | None:
     repository = CardRepository(session)
     use_case = UpdateCardUseCase(repository)
     controller = UpdateCardController(use_case)
-    card = controller.handle(id, card)
+    card = controller.handle(card, id)
+
     return card

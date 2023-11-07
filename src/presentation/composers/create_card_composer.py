@@ -9,9 +9,9 @@ from src.presentation.controllers.create_card_controller import (
 from src.presentation.schemas.card import CardOut
 
 
-def create_card_composer(session, card) -> CardOut | None:
+def create_card_composer(session, card, user_id: int) -> CardOut | None:
     repository = CardRepository(session)
     use_case = CreateCardUseCase(repository)
     controller = CreateCardController(use_case)
-    card = controller.handle(card)
+    card = controller.handle(card, user_id)
     return card

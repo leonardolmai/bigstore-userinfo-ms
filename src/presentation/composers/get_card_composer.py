@@ -7,7 +7,7 @@ from src.presentation.controllers.get_card_controller import GetCardController
 from src.presentation.schemas.card import CardOut
 
 
-def get_card_composer(session, id) -> CardOut | None:
+def get_card_composer(session, id: int) -> CardOut | None:
     repository = CardRepository(session)
     use_case = GetCardUseCase(repository)
     controller = GetCardController(use_case)
