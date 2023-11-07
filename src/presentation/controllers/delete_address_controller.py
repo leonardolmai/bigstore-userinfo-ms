@@ -6,6 +6,6 @@ class DeleteAddressController:
     def __init__(self, use_case: DeleteAddressUseCaseInterface) -> None:
         self.__use_case = use_case
 
-    def handle(self, id) -> AddressOut | None:
+    def handle(self, id: int) -> AddressOut | None:
         response = self.__use_case.execute(id)
         return response

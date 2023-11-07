@@ -6,6 +6,6 @@ class CreateAddressController:
     def __init__(self, use_case: CreateAddressUseCaseInterface) -> None:
         self.__use_case = use_case
 
-    def handle(self, address) -> AddressOut | None:
-        response = self.__use_case.execute(address)
+    def handle(self, address, user_id: int) -> AddressOut | None:
+        response = self.__use_case.execute(address, user_id)
         return response

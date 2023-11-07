@@ -6,6 +6,6 @@ class ListAddressesController:
     def __init__(self, use_case: ListAddressesUseCaseInterface) -> None:
         self.__use_case = use_case
 
-    def handle(self) -> list[AddressOut] | None:
-        response = self.__use_case.execute()
+    def handle(self, user_id: int) -> list[AddressOut] | None:
+        response = self.__use_case.execute(user_id)
         return response
