@@ -1,14 +1,4 @@
-class Constraint:
-    def __init__(
-        self,
-        id: int,
-        user_id: int,
-    ) -> None:
-        self.id = id
-        self.user_id = user_id
-
-
-class Address(Constraint):
+class Address:
     def __init__(
         self,
         id: int,
@@ -21,7 +11,8 @@ class Address(Constraint):
         number: str,
         complement: str,
     ) -> None:
-        super().__init__(id, user_id)
+        self.id = id
+        self.user_id = user_id
         self.postal_code = postal_code
         self.uf = uf
         self.city = city
