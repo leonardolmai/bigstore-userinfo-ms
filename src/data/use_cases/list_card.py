@@ -1,12 +1,12 @@
 from src.data.repositories.card_repository import CardRepositoryInterface
 from src.domain.entities.card import Card
-from src.domain.use_cases.get_card import GetCardUseCaseInterface
+from src.domain.use_cases.list_card import ListCardUseCaseInterface
 
 
-class GetCardUseCase(GetCardUseCaseInterface):
+class ListCardUseCase(ListCardUseCaseInterface):
     def __init__(self, card_repository: CardRepositoryInterface) -> None:
         self.__card_repository = card_repository
 
-    def execute(self, id: int) -> Card | None:
-        card = self.__card_repository.get_card(id)
+    def execute(self, user_id: int) -> list[Card] | None:
+        card = self.__card_repository.list_card(user_id)
         return card
